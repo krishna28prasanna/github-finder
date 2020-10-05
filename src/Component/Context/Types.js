@@ -1,0 +1,5 @@
+export const SEARCH_USER = "SEARCH_USER"
+export const GET_USER = "GET_USER"
+export const GET_REPO = "GET_REPO"
+export const SET_LOADING = "SET_LOADING"
+export const SET_PROFILE_LOADING = "SET_PROFILE_LOADING"

@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 const UserProfile = (props) => {
   const [userProfile, setUserProfile] = useState({});
   const [repos, setRepos] = useState([]);
-  const [isLoading, setLoading] = useState(true);
+  const [isProfileLoading, setProfileLoading] = useState(true);
 
   useEffect(() => {
     axios
@@ -26,11 +26,11 @@ const UserProfile = (props) => {
       .then((res) => {
         setRepos(res.data);
       });
-    setLoading(false);
+    setProfileLoading(false);
   });
   return (
     <div className="container">
-      {!isLoading ? (
+      {!isProfileLoading ? (
         <div>
           <Profile userProfile={userProfile} />
           <Repos repos={repos} />
@@ -47,7 +47,7 @@ const UserProfile = (props) => {
 };
 UserProfile.propTypes = {
   userProfile: PropTypes.object.isRequired,
-  isLoading: PropTypes.bool.isRequired,
+  isProfileLoading: PropTypes.bool.isRequired,
   repos: PropTypes.array.isRequired,
 };
 export default withRouter(UserProfile);
