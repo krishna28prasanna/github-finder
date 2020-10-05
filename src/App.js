@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import {BrowserRouter,Redirect,Route,Switch} from "react-router-dom"
 import Header from './Component/Header/Header';
@@ -7,25 +7,19 @@ import User from './Component/User/User';
 import UserProfile from './Component/User/UserProfile';
 import PropTypes from "prop-types"
 
-class App extends React.Component {
-  state = {
-    users : [],
-    isLoading : true
-  }
-  static propTypes = {
-    users : PropTypes.array.isRequired,
-    isLoading : PropTypes.bool.isRequired
-  }
-  async componentDidMount(){
-    const res = await axios.get("users?client_id='ef90948adc0f7aa7e313'&client_secret='25f6a6c55651c08d434a90cd716340f98c72ff78'")
-    this.setState({
-      users : res.data,
-      isLoading : false
-    })
-  }
+const App = () => {
 
-  render(){
-    const {users,isLoading} = this.state
+  const [users,setUsers] = useState([])
+  const [isLoading,setLoading] = useState(true)
+ 
+  useEffect(()=>{
+    axios.get("users?client_id='ef90948adc0f7aa7e313'&client_secret='25f6a6c55651c08d434a90cd716340f98c72ff78'")
+    .then(res=>{
+      setUsers(res.data)
+    setLoading(false)
+    })
+  },[])
+
     return (
       <div>
        <BrowserRouter>
@@ -39,5 +33,9 @@ class App extends React.Component {
       </div>
     )
   }
+
+App.propTypes = {
+  users : PropTypes.array.isRequired,
+  isLoading : PropTypes.bool.isRequired
 }
 export default App;

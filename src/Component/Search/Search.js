@@ -1,22 +1,13 @@
-import React from "react";
+import React,{useState} from "react";
 import PropTypes from "prop-types"
-class Search extends React.Component {
-  state = {
-    search: "",
-  };
-static propTypes = {
-    searchUser : PropTypes.func.isRequired
-}
+const Search = (props)=> {
+ const [search,setSearchText] = useState("")
 
-  handleChange = (e) => {
-    this.setState({
-        [e.target.name] : e.target.value
-    },()=>{
-        this.props.searchUser(this.state.search)
-    }
-    )
+  const handleChange = (e) => {
+    props.searchUser(e.target.value)
+     setSearchText(e.target.value)
   };
-  render() {
+  
     return (
       <div>
         <form>
@@ -27,14 +18,16 @@ static propTypes = {
               id="search"
               placeholder="Search User..."
               className="form-control"
-              value={this.state.search}
+              value={search}
               name="search"
-              onChange={this.handleChange}
+              onChange={handleChange}
             />
           </div>
         </form>
       </div>
     );
   }
+Search.propTypes = {
+    searchUser : PropTypes.func.isRequired
 }
 export default Search;
